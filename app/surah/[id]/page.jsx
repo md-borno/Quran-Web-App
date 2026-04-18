@@ -1,9 +1,24 @@
-import { SurahReader } from '../../../components/surah-reader';
+import { notFound } from 'next/navigation';
+import { getAllSurahs, getSurahById } from '../../../lib/quran-api';
+import { SurahClient } from '../../../components/surah-client';
 
-export function generateStaticParams() {
-  return Array.from({ length: 114 }, (_, index) => ({ id: String(index + 1) }));
+export const revalidate = 86400;
+
+export async function generateStaticParams() {
+  return Array.from({ length: 114 }, (_, index) => ({
+    id: String(index + 1),
+  }));
 }
 
-export default function SurahPage({ params }) {
-  return <SurahReader id={params.id} />;
+export default async function SurahPage({ params }) {
+  const id = Number(params.id);
+
+  if (!id || id < 1 || id > 114) {
+    notFound();
+  }
+
+  const surah = await getSurahById(id);
+  const allSurahs = await getAllSurahs();
+
+  return <SurahClient surah={surah} allSurahs={allSurahs} />;
 }

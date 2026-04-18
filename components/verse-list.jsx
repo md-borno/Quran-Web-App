@@ -1,42 +1,31 @@
-'use client';
-
-import { useSettings } from './settings-context';
-
 export function VerseList({ verses }) {
-  const { settings } = useSettings();
-  const arabicClassName =
-    settings.arabicFont === 'noto' ? 'font-arabic-noto' : 'font-arabic-amiri';
-
   return (
-    <div className="space-y-4">
+    <section className="space-y-4">
       {verses.map((verse) => (
         <article
-          id={`verse-${verse.id}`}
-          key={verse.id}
-          className="card p-5 sm:p-6"
+          id={`verse-${verse.verseNumber}`}
+          key={`${verse.surahId}-${verse.verseNumber}`}
+          className="rounded-3xl border border-slate-800 bg-slate-950/80 p-5"
         >
-          <div className="flex items-center justify-between gap-3 text-sm text-slate-400">
-            <span>Ayah {verse.id}</span>
-            <span>{verse.verse_key}</span>
+          <div className="mb-3 text-sm text-emerald-300">
+            Ayah {verse.verseNumber}
           </div>
 
           <p
-            className={`mt-5 text-right leading-loose text-slate-50 ${arabicClassName}`}
-            style={{ fontSize: `${settings.arabicFontSize}px` }}
+            className="mb-4 text-right leading-loose text-slate-100"
+            style={{ fontSize: 'var(--arabic-font-size, 36px)' }}
           >
-            {verse.text}
+            {verse.arabic}
           </p>
 
           <p
-            className="mt-5 leading-8 text-slate-300"
-            style={{ fontSize: `${settings.translationFontSize}px` }}
+            className="leading-8 text-slate-300"
+            style={{ fontSize: 'var(--translation-font-size, 18px)' }}
           >
-            {settings.translationLanguage === 'bn'
-              ? verse.translationBn
-              : verse.translationEn}
+            {verse.translation}
           </p>
         </article>
       ))}
-    </div>
+    </section>
   );
 }

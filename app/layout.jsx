@@ -1,22 +1,27 @@
 import './globals.css';
-import { SettingsProvider } from '../components/settings-context';
+import { Amiri, Noto_Naskh_Arabic } from 'next/font/google';
+
+const amiri = Amiri({
+  subsets: ['arabic'],
+  weight: ['400', '700'],
+  variable: '--font-amiri',
+});
+
+const noto = Noto_Naskh_Arabic({
+  subsets: ['arabic'],
+  weight: ['400', '500', '700'],
+  variable: '--font-noto',
+});
 
 export const metadata = {
-  title: 'Quran Web Application',
-  description: 'Responsive Quran reading app built with Next.js and Tailwind CSS.',
+  title: 'Quran Web App',
+  description: 'Responsive Quran web app with SSG and settings persistence',
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet" />
-      </head>
-      <body>
-        <SettingsProvider>{children}</SettingsProvider>
-      </body>
+    <html lang="en" className={`${amiri.variable} ${noto.variable}`}>
+      <body className="bg-slate-950 text-white">{children}</body>
     </html>
   );
 }
