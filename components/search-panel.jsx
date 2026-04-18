@@ -34,10 +34,10 @@ export function SearchPanel() {
 
   useEffect(() => {
     async function searchAyahs() {
-      if (!debounced) {
-        setResults([]);
-        return;
-      }
+      if (debounced.length < 2) {
+  setResults([]);
+  return;
+}
 
       try {
         setLoading(true);
