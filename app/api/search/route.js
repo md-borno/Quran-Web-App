@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { getSearchIndex } from '../../../lib/quran-api';
 
 export const revalidate = 86400;
+export const dynamic = "force-dynamic";
 
 export async function GET(request) {
   try {
