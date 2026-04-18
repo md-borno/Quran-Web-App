@@ -18,12 +18,18 @@ export function VerseList({ verses }) {
             {verse.arabic}
           </p>
 
-          <p
-            className="leading-8 text-slate-300"
+          <div
+            className="leading-8"
             style={{ fontSize: 'var(--translation-font-size, 18px)' }}
           >
-            {verse.translation}
-          </p>
+            <p className="mt-3 text-slate-300">
+              {verse.translationEn}
+            </p>
+
+            <p className="mt-2 text-emerald-400">
+              {verse.translationBn}
+            </p>
+          </div>
         </article>
       ))}
     </section>

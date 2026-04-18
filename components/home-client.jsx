@@ -18,10 +18,7 @@ export function HomeClient({ surahs }) {
           <h1 className="mt-2 text-3xl font-bold text-white sm:text-4xl">
             Read, search and browse the Quran
           </h1>
-          <p className="mt-3 max-w-2xl text-slate-400">
-            Statically generated surah pages with responsive layout, searchable
-            translation and persistent reading settings.
-          </p>
+          
         </div>
 
         <button
