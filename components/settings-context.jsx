@@ -6,6 +6,7 @@ const defaultSettings = {
   arabicFont: 'amiri',
   arabicFontSize: 34,
   translationFontSize: 18,
+  translationLanguage: 'en',
 };
 
 const SettingsContext = createContext(null);

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { getChapterUrl } from '../lib/constants';
+import { getChapterUrl, QURAN_SEARCH_URL_BN } from '../lib/constants';
 import { SettingsSidebar } from './settings-sidebar';
 import { VerseList } from './verse-list';
 
@@ -15,11 +15,31 @@ export function SurahReader({ id }) {
 
     async function load() {
       try {
-        const response = await fetch(getChapterUrl(id));
-        if (!response.ok) throw new Error('Failed to load surah');
-        const data = await response.json();
+        const [chapterResponse, bnResponse] = await Promise.all([
+          fetch(getChapterUrl(id)),
+          fetch(QURAN_SEARCH_URL_BN),
+        ]);
+
+        if (!chapterResponse.ok || !bnResponse.ok) {
+          throw new Error('Failed to load surah');
+        }
+
+        const chapterData = await chapterResponse.json();
+        const bnData = await bnResponse.json();
+        const bnSurah = bnData[Number(id) - 1];
+
+        const mergedVerses = chapterData.verses.map((verse, index) => ({
+          ...verse,
+          translationEn: verse.translation,
+          translationBn: bnSurah?.verses?.[index]?.translation || '',
+        }));
+
         if (!active) return;
-        setSurah(data);
+
+        setSurah({
+          ...chapterData,
+          verses: mergedVerses,
+        });
         setError('');
       } catch (err) {
         if (!active) return;
@@ -28,6 +48,7 @@ export function SurahReader({ id }) {
     }
 
     load();
+
     return () => {
       active = false;
     };
@@ -36,7 +57,9 @@ export function SurahReader({ id }) {
   if (error) {
     return (
       <main className="container-shell py-6 sm:py-10">
-        <Link href="/" className="text-emerald-300 hover:text-emerald-200">← Back to surah list</Link>
+        <Link href="/" className="text-emerald-300 hover:text-emerald-200">
+          ← Back to surah list
+        </Link>
         <div className="card mt-6 p-6 text-sm text-rose-300">{error}</div>
       </main>
     );
@@ -45,7 +68,9 @@ export function SurahReader({ id }) {
   if (!surah) {
     return (
       <main className="container-shell py-6 sm:py-10">
-        <Link href="/" className="text-emerald-300 hover:text-emerald-200">← Back to surah list</Link>
+        <Link href="/" className="text-emerald-300 hover:text-emerald-200">
+          ← Back to surah list
+        </Link>
         <div className="card mt-6 p-6 text-sm text-slate-300">Loading surah...</div>
       </main>
     );
@@ -54,16 +79,22 @@ export function SurahReader({ id }) {
   return (
     <main className="container-shell py-6 sm:py-10">
       <div className="mb-6 flex flex-wrap items-center gap-3 text-sm text-slate-400">
-        <Link href="/" className="text-emerald-300 hover:text-emerald-200">← Back to surah list</Link>
+        <Link href="/" className="text-emerald-300 hover:text-emerald-200">
+          ← Back to surah list
+        </Link>
         <span className="text-slate-600">/</span>
         <span>{surah.name_simple}</span>
       </div>
 
       <section className="mb-6 rounded-3xl border border-slate-800 bg-slate-900/70 p-6 sm:p-8">
-        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">Surah {surah.id}</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.3em] text-emerald-300">
+          Surah {surah.id}
+        </p>
         <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-white sm:text-5xl">{surah.name_simple}</h1>
+            <h1 className="text-3xl font-bold text-white sm:text-5xl">
+              {surah.name_simple}
+            </h1>
             <p className="mt-3 text-4xl text-slate-100">{surah.name_arabic}</p>
             <p className="mt-3 text-slate-400">{surah.translated_name}</p>
           </div>

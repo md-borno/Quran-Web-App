@@ -24,14 +24,21 @@ export function SurahGrid({ surahs, loading }) {
               <div className="flex items-start justify-between gap-3">
                 <div>
                   <p className="text-sm text-emerald-300">#{surah.id}</p>
-                  <h3 className="mt-2 text-lg font-semibold text-white">{surah.name_simple}</h3>
-                  <p className="mt-1 text-2xl text-slate-100">{surah.name_arabic}</p>
+                  <h3 className="mt-2 text-lg font-semibold text-white">
+                    {surah.name_simple || surah.name || surah.transliteration || surah.englishName}
+                  </h3>
+                  <p className="mt-1 text-2xl text-slate-100">
+                    {surah.name_arabic || surah.name || surah.arabicName}
+                  </p>
                 </div>
                 <div className="rounded-full border border-slate-700 px-3 py-1 text-xs text-slate-300">
-                  {surah.verses_count} ayahs
+                  {surah.verses_count || surah.versesCount || surah.total_verses || '?'} ayahs
                 </div>
               </div>
-              <p className="mt-4 text-sm text-slate-400">{surah.translated_name}</p>
+
+              <p className="mt-4 text-sm text-slate-400">
+                {surah.translated_name || surah.translation || surah.translatedName || surah.englishNameTranslation}
+              </p>
             </Link>
           ))}
         </div>

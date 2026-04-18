@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
+import { useSettings } from './settings-context';
 
 export function SearchPanel({ verses, loading }) {
   const [query, setQuery] = useState('');

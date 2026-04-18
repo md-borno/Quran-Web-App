@@ -41,7 +41,24 @@ export function SettingsSidebar() {
             onChange={(event) => setSettings((current) => ({ ...current, arabicFontSize: Number(event.target.value) }))}
           />
         </div>
-
+        <div>
+          <label className="mb-2 block text-sm font-medium text-slate-200">
+            Translation language
+          </label>
+          <select
+            className="input"
+            value={settings.translationLanguage}
+            onChange={(event) =>
+              setSettings((current) => ({
+                ...current,
+                translationLanguage: event.target.value,
+              }))
+            }
+          >
+            <option value="en">English</option>
+            <option value="bn">Bangla</option>
+          </select>
+        </div>
         <div>
           <div className="mb-2 flex items-center justify-between text-sm text-slate-200">
             <label>Translation font size</label>
