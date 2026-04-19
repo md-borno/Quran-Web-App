@@ -3,13 +3,7 @@ import { getAllSurahs, getSurahById } from '../../../lib/quran-api';
 import { SurahClient } from '../../../components/surah-client';
 
 export const revalidate = 86400;
-export const dynamic = "force-dynamic";
-
-export async function generateStaticParams() {
-  return Array.from({ length: 114 }, (_, index) => ({
-    id: String(index + 1),
-  }));
-}
+export const dynamic = 'force-dynamic';
 
 export default async function SurahPage({ params }) {
   const id = Number(params.id);

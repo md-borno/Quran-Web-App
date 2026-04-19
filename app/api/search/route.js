@@ -2,7 +2,6 @@ import { NextResponse } from 'next/server';
 import { getSearchIndex } from '../../../lib/quran-api';
 
 export const revalidate = 86400;
-export const dynamic = "force-dynamic";
 
 export async function GET(request) {
   try {
@@ -23,13 +22,7 @@ export async function GET(request) {
           : item.translationEnLower.includes(q)
       )
       .slice(0, 50)
-      .map(
-        ({
-          translationEnLower,
-          translationBnLower,
-          ...rest
-        }) => rest
-      );
+      .map(({ translationEnLower, translationBnLower, ...rest }) => rest);
 
     return NextResponse.json({ results });
   } catch (error) {
