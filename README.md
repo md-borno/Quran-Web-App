@@ -2,6 +2,24 @@
 
 A responsive Quran web app built with **Next.js**, **Tailwind CSS**, and the public **quran-json** dataset.
 
+
+### 🗂 Application Page
+![Task List](public/web.png)
+
+<div style="display: flex; gap: 20px;">
+
+  <div style="flex: 1; text-align: center;">
+    <h3>Mobile View</h3>
+    <img src="public/mobile.jpg" alt="Task List" width="100%">
+  </div>
+
+  <div style="flex: 1; text-align: center;">
+    <h3>Responsive Setting</h3>
+    <img src="public/setting-mobile.jpg" alt="Create Task" width="100%">
+  </div>
+
+</div>
+
 ## Features
 
 - Responsive UI
@@ -9,11 +27,10 @@ A responsive Quran web app built with **Next.js**, **Tailwind CSS**, and the pub
 - Ayat page for each surah with Arabic text and English translation
 - Search ayahs by translation text
 - Settings sidebar with:
-  - Arabic font selection (Amiri / Noto Naskh Arabic)
+  - Arabic font selection (Amiri / Noto Naskh Arabic, Scheherazade New)
   - Arabic font size control
   - Translation font size control
-  - Persistence via `localStorage`
-- Statically generated surah routes (`/surah/1` to `/surah/114`)
+  
 
 ## Tech Stack
 
@@ -37,14 +54,11 @@ npm run build
 npm run start
 ```
 
-## Suggested deployment
+## Live Link
 
-- Vercel
-- Netlify
+https://ayahlight.netlify.app/
 
-## Submission
+## Explanation Video:
+ https://drive.google.com/file/d/1xVWNgD_RXF9nfr0D61Hc71IZy7BgnUFr/view?usp=sharing
 
-Reply in the same email with:
-- Public GitHub repository link
-- Live demo link
-- Screen recording link (under 5 minutes)
+
